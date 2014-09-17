@@ -19,7 +19,13 @@ Login.prototype.hello = function(sessionId) {
  * Check whether the given session id is valid (is in sessionMap) or not.
  */
 Login.prototype.isLoggedIn = function(sessionId) {
-	return sessionId in this.sessionMap;
+	if(sessionId in this.sessionMap){
+	return true;
+	}
+	else
+	{	
+	return false;
+	}
 };
 
 /**
@@ -45,6 +51,7 @@ Login.prototype.regenerateSessionId = function(_sid) {
 	var _name = this.sessionMap[_sid].name; 
 	var _email = this.sessionMap[_sid].email;
 	this.sessionMap[n_sessionId] = { name: _name, email: _email } 
+	delete this.sessionMap[_sid];
 	console.log('new session id ' + n_sessionId + ' for login::' + _email);
 	return n_sessionId;
 } ;
@@ -54,9 +61,7 @@ Login.prototype.regenerateSessionId = function(_sid) {
  */ 
 Login.prototype.logout = function(sessionId) {
 
-	delete this.sessionMap[sessionId].name;
-	delete this.sessionMap[sessionId].email;
-	delete this.sessionMap['sessionId'];
+	delete this.sessionMap[sessionId];
 	console.log('logout::' + sessionId);
     	return true;   
 };

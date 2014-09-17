@@ -32,7 +32,8 @@ function get(request, response) {
 			response.end("Invalid session_id! Please login again\n");
 		}
 	} else {
-		response.end("Please login via HTTP POST\n");
+ 	response.writeHead(200,{'Content-type':'text/html','Set-Cookie':'session_id='+sid});	
+	response.end("Please login via HTTP POST\n");
 	}
 };
 
@@ -54,17 +55,19 @@ function del(request, response) {
  	// No need to set session id in the response cookies since you just logged out!
 	var cookies = request.cookies;
 	console.log(cookies);
-	if ('session_id' in cookies) {
-		var sid = cookies['session_id'];
-		if ( login.isLoggedIn(sid) ) {
-			if(login.logout(sid))
-			{
+	if ('session_id' in cookies)
+	 {
+	       var sid = cookies['session_id'];
+		if ( login.isLoggedIn(sid) ) 
+		{
+   			login.logout(sid);			
 			response.writeHead(200,{'Content-type':'text/html'});
 			response.end('Logged out from the server\n');
-			}
 		}
 		else
-		{response.end("Invalid session_id! Please login again\n");}
+		{
+			response.end("Invalid session_id! Please login again\n");
+		}
 	}
 	else
 	{response.end("Please login via HTTP POST\n");
@@ -81,7 +84,7 @@ function put(request, response) {
 		if ( login.isLoggedIn(sid) ) {
 	var newSessionId = login.regenerateSessionId(sid);
 	response.writeHead(200,{'Content-type':'text/html','Set-Cookie':'session_id='+newSessionId});
-			response.end(login.hello("Re-freshed session id");	
+			response.end("Re-freshed session id\n");	
 	    }
 		else
 		{response.end("Invalid session_id! Please login again\n");}
