@@ -81,7 +81,7 @@ function put(request, response) {
 		if ( login.isLoggedIn(sid) ) {
 	var newSessionId = login.regenerateSessionId(sid);
 	response.writeHead(200,{'Content-type':'text/html','Set-Cookie':'session_id='+newSessionId});
-			response.end(login.hello(newSessionId));	
+			response.end(login.hello("Re-freshed session id");	
 	    }
 		else
 		{response.end("Invalid session_id! Please login again\n");}
