@@ -3,6 +3,8 @@ cmpe273-lab2
 
 Node.JS with [Connect]
 
+(Connect is an extensible HTTP server framework for node using "plugins" known as middleware)
+
 ### To Install Dependencies ###
 
 ```sh
